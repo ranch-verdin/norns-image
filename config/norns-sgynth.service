@@ -8,8 +8,8 @@ User=we
 Group=we
 LimitRTPRIO=95
 LimitMEMLOCK=infinity
-CPUAffinity=3
-ExecStart=/home/we/norns/build/crone/crone
+CPUAffinity=2
+ExecStart=/home/we/sgynth/engine
 
 [Install]
 WantedBy=norns.target
