@@ -78,3 +78,37 @@ sudo apt purge exim4-* nfs-common triggerhappy
 sudo systemctl mask raspi-config.service
 
 sudo apt --purge -y autoremove
+
+# cargo cult ritual to purge plymouth
+sudo apt-get remove plymouth
+
+sudo systemctl unmask plymouth
+sudo systemctl disable plymouth
+sudo systemctl unmask plymouth-read-write.service
+sudo systemctl disable plymouth-read-write.service
+
+sudo systemctl unmask systemd-ask-password-plymouth.path
+sudo systemctl disable systemd-ask-password-plymouth.path
+sudo systemctl unmask systemd-ask-password-plymouth
+sudo systemctl disable systemd-ask-password-plymouth
+sudo systemctl unmask systemd-ask-password-plymouth.service
+sudo systemctl disable systemd-ask-password-plymouth.service
+
+sudo systemctl unmask plymouth-quit
+sudo systemctl disable plymouth-quit
+sudo systemctl unmask plymouth-quit-wait
+sudo systemctl disable plymouth-quit-wait
+
+sudo systemctl unmask systemd-ask-password-plymouth
+sudo systemctl disable systemd-ask-password-plymouth
+sudo systemctl unmask systemd-ask-password-plymouth.path
+sudo systemctl disable systemd-ask-password-plymouth.path
+
+sudo systemctl daemon-reload
+
+# check norns.target survived the ordeal
+sudo systemd-analyze verify norns.target
+
+# check Plymouth is really gone
+systemctl | grep plymouth
+ls /etc/systemd/system/*plymouth*
